@@ -8,6 +8,13 @@ ItxValidator<T> required({required String message}) => addValidation(
             ? message
             : null,
       );
+
+  /// add a validation to check if the value is Email
+ItxValidator<T> email({required String message}) => addValidation(
+        (v, [_]) => v == null || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(v.toString())
+            ? message
+            : null,
+      );
 }
 
 

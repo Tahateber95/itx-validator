@@ -39,7 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ItxSchema formSchema = ItxSchema.structure(
     {
-      "email": ItxValidator<String>().required(message: 'Email is required'),
+      "email": ItxValidator<String>()
+      .required(message: 'Email is required')
+      .email(message: 'Email is invalid'),
       "password":
           ItxValidator<String>().required(
             message: "Password is required"
