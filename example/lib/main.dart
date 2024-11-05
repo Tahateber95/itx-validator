@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:itx_validator/itx_validator.dart';
 
@@ -32,39 +33,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- Map<String, dynamic> form = {
-    "email": "",
-  // "password": "", // uncomment this line to see the error
-    "age": 0,
-  };
+ Map<String, dynamic> form = {};
+
   Map<dynamic, dynamic> errors = {};
 
   ItxSchema formSchema = ItxSchema.structure(
     {
-      "email": ItxValidator<String>(label: "l'email").required(),
+      "email": ItxValidator<String>().required(message: 'Email is required'),
       "password":
-          ItxValidator<String>(label: 'le mot de passe').required(),
-      "age": ItxValidator<num>(label: 'l\'age').required(),
+          ItxValidator<String>().required(
+            message: "Password is required"
+          ),
+      "age": ItxValidator<num>().required(
+        message: "Age is required"
+      ),
     },
   );
 
 
   void validate() {
     try {
-      final res = formSchema.validateSync(form);
+      final res = formSchema.validate(form);
       setState(() {
         errors = res.$2;
-      });
-      print(res.$1);
-      errors.forEach((key, value) {
-        print('$key ===> $value');
       });
     } catch (e) {
       print(e);
     }
   }
 
-    _onChange(String name, dynamic value) {
+   _onValueChange(String name, dynamic value) {
     form[name] = value;
   }
 
@@ -90,21 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextField(
-                        onChanged: (value) => _onChange('email', value),
+                        onChanged: (value) => _onValueChange('email', value),
                       ),
                         ErrorWIdget(name: errors['email']),
                       const SizedBox(height: 10.0),
                       TextField(
-                        onChanged: (value) => _onChange('password', value),
+                        onChanged: (value) => _onValueChange('password', value),
 
                       ),
+                       ErrorWIdget(name: errors['password']),
                       const SizedBox(height: 10.0),
                       TextField(
                         keyboardType: TextInputType.number,
-                        onChanged: (value) => _onChange('age', value),
+                        onChanged: (value) => _onValueChange('age', int.tryParse(value) ),
                       ),
+                       ErrorWIdget(name: errors['age']),
                       const SizedBox(height: 10.0),
-
                       MaterialButton(
                         onPressed: validate,
                         color: Colors.white,
@@ -129,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class ErrorWIdget extends StatelessWidget {
   final String? name;
 
-  const ErrorWIdget({this.name, key}) : super(key: key);
+   const ErrorWIdget({this.name, super.key});
   @override
   Widget build(BuildContext context) {
     return name == null || name!.isEmpty

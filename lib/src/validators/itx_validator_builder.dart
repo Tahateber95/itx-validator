@@ -8,19 +8,7 @@ typedef ValidationCallback<T> = dynamic Function(
 ]);
 
 class ItxValidator<T> extends SchemaValue {
-  ItxValidator({
-    this.defaultValue,
-    this.label,
-  });
-
-
-
-  /// default is used when casting produces a `null` output value
-  final T? defaultValue;
-
-  /// Overrides the key name which is used in error messages.
-  final String? label;
-
+  ItxValidator();
 
   final List<ValidationCallback<T>> validations = [];
 
@@ -36,9 +24,6 @@ class ItxValidator<T> extends SchemaValue {
 
   dynamic _test(T? value, [Map<dynamic, dynamic>? ref]) {
     try {
-      if (value == null && defaultValue != null) {
-        value = defaultValue;
-      }
 
       for (var validate in validations) {
         final result = validate(value, ref);

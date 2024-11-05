@@ -48,7 +48,7 @@ class ItxSchema  extends SchemaValue {
   /// validate the values you have sent and return a [Map]
   ///
   /// It will return a `Map` with errors and the data
-  (Map<dynamic, dynamic> data, Map<dynamic, dynamic> errors) validateSync(
+  (Map<dynamic, dynamic> data, Map<dynamic, dynamic> errors) validate(
     Map<dynamic, dynamic> form,
   ) {
     final errors = catchErrors(form);

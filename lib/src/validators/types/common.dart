@@ -3,13 +3,15 @@
 extension CommonValidatorExtensions<T> on ItxValidator<T> {
   /// add a validation to check if the value is null or empty
   /// [message] is the message to return if the validation fails
-  ItxValidator<T> required([String? message]) => addValidation(
+ItxValidator<T> required({required String message}) => addValidation(
         (v, [_]) => v == null || v.isNullOrEmpty
-            ? message ?? 'This field is required'
+            ? message
             : null,
       );
-
 }
+
+
+
 
 extension OptionalValidation<T> on T? {
   bool get isNullOrEmpty {
