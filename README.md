@@ -24,7 +24,7 @@ To begin with `ItxValidator`, define a schema object that represents the structu
 Create a schema using `ItxSchema.structure` where each field in the data object is associated with an `ItxValidator` specifying its validation rules:
 
 ```dart
-final ItxSchema userSchema = ItxSchema.structure(
+final ItxSchema formSchema = ItxSchema.structure(
   {
      "email": ItxValidator<String>()
       .required(message: 'Email is required')
