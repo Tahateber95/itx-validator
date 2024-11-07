@@ -91,20 +91,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       TextField(
                         onChanged: (value) => _onValueChange('email', value),
+                        decoration: InputDecoration(
+                          errorText: errors['email'],
+                        ),
                       ),
-                        ErrorWIdget(name: errors['email']),
+
                       const SizedBox(height: 10.0),
                       TextField(
                         onChanged: (value) => _onValueChange('password', value),
-
+                        decoration: InputDecoration(
+                          errorText: errors['password'],
+                        ),
                       ),
-                       ErrorWIdget(name: errors['password']),
                       const SizedBox(height: 10.0),
                       TextField(
                         keyboardType: TextInputType.number,
                         onChanged: (value) => _onValueChange('age', int.tryParse(value) ),
+                        decoration: InputDecoration(
+                          errorText: errors['age'],
+                        ),
                       ),
-                       ErrorWIdget(name: errors['age']),
                       const SizedBox(height: 10.0),
                       MaterialButton(
                         onPressed: validate,
@@ -126,35 +132,4 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 
-
-class ErrorWIdget extends StatelessWidget {
-  final String? name;
-
-   const ErrorWIdget({this.name, super.key});
-  @override
-  Widget build(BuildContext context) {
-    return name == null || name!.isEmpty
-        ? const SizedBox.shrink()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 7.0),
-              Row(
-                children: [
-                  const Icon(Icons.error_outline,
-                      size: 14.0, color: Colors.red),
-                  const SizedBox(width: 3.0),
-                  Flexible(
-                    child: Text(
-                      name as String,
-                      style: const TextStyle(fontSize: 16.0, color: Colors.red),
-                    ),
-                  )
-                ],
-              )
-            ],
-          );
-  }
-}
 
