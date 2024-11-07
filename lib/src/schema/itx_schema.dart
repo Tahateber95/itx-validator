@@ -39,10 +39,18 @@ class ItxSchema  extends SchemaValue {
         }
       }
     });
-
-
     return errors;
   }
+
+
+  /// sanitize the data you have sent and return a [Map]
+  Map<dynamic, dynamic> _sanitizeData(Map<dynamic, dynamic> form) {
+  Map<dynamic, dynamic> sanitizedForm = {};
+  form.forEach((key, value) {
+    sanitizedForm[key] = value is String ? value.trim() : value;
+  });
+  return sanitizedForm;
+}
 
 
   /// validate the values you have sent and return a [Map]
@@ -51,7 +59,8 @@ class ItxSchema  extends SchemaValue {
   (Map<dynamic, dynamic> data, Map<dynamic, dynamic> errors) validate(
     Map<dynamic, dynamic> form,
   ) {
-    final errors = catchErrors(form);
+    final sanitizedForm = _sanitizeData(form);
+    final errors = catchErrors(sanitizedForm);
     return (form, errors);
   }
 
