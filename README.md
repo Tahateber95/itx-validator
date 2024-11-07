@@ -6,15 +6,6 @@
 
 ItxValidator a simple approach to field and object schema validation tailored for Flutter.
 
-## Installing
-
-Add ItxValidator to your pubspec:
-
-```yaml
-dependencies:
-  itx_validator: any # or the latest version on Pub
-```
-
 ## Getting Started
 
 To begin with `ItxValidator`, define a schema object that represents the structure and validation rules for your data. Below is an example demonstrating how to create a schema for user data, including validations for email, password, and date fields.
